@@ -66,7 +66,7 @@ function Listing({ idx, place, handleHover }) {
           <div className="street">{street}</div>
         </div>
 
-        <div className="open">{open}</div>
+        <div className={`open ${opening_hours.open_now ? '' : 'closed'}`}>{open}</div>
       </div>
     </div>
   );

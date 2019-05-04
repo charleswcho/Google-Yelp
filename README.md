@@ -1,68 +1,38 @@
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+# Google Yelp
 
-## Available Scripts
+GoogleYelp, inspired by Yelp but powered by Google.
 
-In the project directory, you can run:
+[Google-Yelp Live](https://charleswcho.github.io/Google-Yelp/)
 
-### `npm start`
+## Features & Implementation
 
-Runs the app in the development mode.<br>
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+### Search
 
-The page will reload if you make edits.<br>
-You will also see any lint errors in the console.
+Users have the option of inputing a query and a location to search for places.  Very much like Yelp...  The default is a search in San Francisco for restaurants.  
 
-### `npm test`
+First, the location input is parsed by Google's Geocoder.  After completion the resulting coordinates are sent to the `ResultStore` which triggers a listener in the `Results` component.  The Results component re-renders and sends down the coordinates and the query to the `Map` component which then starts a `google.maps.places.PlacesService` text search.
 
-Launches the test runner in the interactive watch mode.<br>
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+![filters][filters]
 
-### `npm run build`
+[filters]: src/assets/splash.png
 
-Builds the app for production to the `build` folder.<br>
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.<br>
-Your app is ready to be deployed!
+### Index
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+With the resulting data from the text search, various data points were parsed out to be displayed.  The items were given a numerical order by using the current index plus 1 which looping through them.  
 
-### `npm run eject`
+The cost was a numerical value so to represent it like Yelp I looped cost times adding $'s every loop.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+### Markers
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+When the results are returned the `Map` also gets passed them as a prop.  The results have a latitude and longitude which I used to create markers.  I also labeled the markers with their index plus 1.  One issue is that I had to limit the results to 10 due to the fact that default google markers don't support double digit numbers (11, 12, 13 all all just become a 1).
 
-Instead, it will copy all the configuration files and the transitive dependencies (Webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+## Bugs
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+Currently there are many more google places api calls than necessary with 8 or 9 repeat calls for every 1 needed.
 
-## Learn More
+## Future features
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+### Marker Animations
 
-To learn React, check out the [React documentation](https://reactjs.org/).
-
-### Code Splitting
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/code-splitting
-
-### Analyzing the Bundle Size
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size
-
-### Making a Progressive Web App
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app
-
-### Advanced Configuration
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/advanced-configuration
-
-### Deployment
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/deployment
-
-### `npm run build` fails to minify
-
-This section has moved here: https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify
+When you hover over a specific item on the index you should be able to see exactly where it is on the map.  A bounce animation could be added to the markers to add more clarity.
