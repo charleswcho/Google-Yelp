@@ -2,14 +2,16 @@ import { useState, useEffect } from 'react';
 
 /* global google */
 
-let autocomplete = null;
-
-function useAutocomplete(initialState, elementId) {
+function useAutocomplete(initialState, inputRef) {
   const [place, setPlace] = useState(initialState);
 
   useEffect(() => {
-    autocomplete = new google.maps.places.Autocomplete(
-      document.getElementById(elementId),
+    if (!inputRef) {
+      return;
+    }
+
+    const autocomplete = new google.maps.places.Autocomplete(
+      inputRef.current,
       {
         types: ['(cities)']
       }
@@ -18,19 +20,19 @@ function useAutocomplete(initialState, elementId) {
     const listener = autocomplete.addListener('place_changed', () => {
       const address = autocomplete.getPlace().formatted_address;
 
+      debugger
+
       if (address) {
         setPlace(address);
       }
     });
 
-    function cleanup() {
+    return () => {
       google.maps.event.clearInstanceListeners(autocomplete);
       google.maps.event.removeListener(listener);
       document.querySelector('.pac-container').remove();
-    }
-
-    return cleanup;
-  }, []);
+    };
+  }, [inputRef]);
 
   return [place, setPlace];
 }

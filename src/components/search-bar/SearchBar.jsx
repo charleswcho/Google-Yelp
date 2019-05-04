@@ -1,26 +1,24 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
-import useAutoComplete from './useAutocomplete';
+import useAutoComplete from '../hooks/useAutocomplete';
 
-import './search-bar.sass';
+import './SearchBar.sass';
 
-function SearchBar() {
+function SearchBar({ handleSearch }) {
+  const inputRef = useRef(null);
   const [query, setQuery] = useState('');
-  const [place, setPlace] = useAutoComplete('', 'searchTextField');
+  const [place, setPlace] = useAutoComplete('', inputRef);
   const [placeHolder, setPlaceHolder] = useState('location');
 
-  function search() {
-    console.log('Boom!');
+  const search = event => {
+    event.preventDefault();
 
     if (place === '') {
       setPlaceHolder('Please enter a location');
       return;
     }
-  }
 
-  const handleSearch = event => {
-    event.preventDefault();
-    search();
+    handleSearch(query, place);
   };
 
   const handleQueryInput = event => {
@@ -38,7 +36,7 @@ function SearchBar() {
   };
 
   return (
-    <form className="search" onSubmit={handleSearch}>
+    <form className="search" onSubmit={search}>
       <a className="header" href="/">
         <h1>Google Yelp</h1>
       </a>
@@ -53,9 +51,9 @@ function SearchBar() {
       />
 
       <input
-        id="searchTextField"
         className="search-field"
         type="text"
+        ref={inputRef}
         value={place}
         placeholder={placeHolder}
         onChange={handlePlaceChange}
