@@ -25,7 +25,7 @@ function SearchBar({ handleSearch }) {
     if (event.charCode === 13) {
       search();
     }
-  }
+  };
 
   const handleQueryChange = event => {
     setQuery(event.target.value);
@@ -37,7 +37,7 @@ function SearchBar({ handleSearch }) {
 
   return (
     <form className="search" onSubmit={search}>
-      <a className="header" href="#">
+      <a className="header" href="/#">
         <h1>Google Yelp</h1>
       </a>
 

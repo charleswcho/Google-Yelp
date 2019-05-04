@@ -10,12 +10,9 @@ function useAutocomplete(initialState, inputRef) {
       return;
     }
 
-    const autocomplete = new google.maps.places.Autocomplete(
-      inputRef.current,
-      {
-        types: ['(cities)']
-      }
-    );
+    const autocomplete = new google.maps.places.Autocomplete(inputRef.current, {
+      types: ['(cities)']
+    });
 
     const listener = autocomplete.addListener('place_changed', () => {
       const address = autocomplete.getPlace().formatted_address;

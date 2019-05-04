@@ -1,4 +1,4 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import useGoogleMap from './hooks/useGoogleMap';
 import useGeocoder from './hooks/useGeocoder';
@@ -10,8 +10,6 @@ import Listings from './listings/Listings';
 import './App.sass';
 
 /* global google */
-
-// SF { lat: 37.7749, lng: -122.4194 }
 
 const mapOptions = {
   center: { lat: 37.7749, lng: -122.4194 },
@@ -56,10 +54,6 @@ function App() {
   const handleHover = idx => {
     setHoveredIdx(idx);
   }
-
-  // useEffect(() => {
-  //   handleSearch('sushi', 'San Francisco, CA, USA');
-  // }, [getCoordsOfAddress, getLocationData, map]);
 
   return (
     <div className="App">

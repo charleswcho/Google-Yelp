@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react';
 
 function useGeocoder(map) {
   const [geocoder, setGeocoder] = useState(null);
-  const statusCodes = { OK: 'OK' }
+  const statusCodes = { OK: 'OK' };
 
   useEffect(() => {
     if (!map) {

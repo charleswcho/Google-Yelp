@@ -7,7 +7,6 @@ function Listing({ idx, place, handleHover }) {
   let open;
   let addressArr = [];
   let street;
-  let cityState;
   let photoUrl;
 
   let {
@@ -29,7 +28,6 @@ function Listing({ idx, place, handleHover }) {
   if (formatted_address) {
     addressArr = formatted_address.split(',');
     street = addressArr[0];
-    cityState = addressArr[1].trim() + ',' + addressArr[2];
   }
 
   if (photos) {
@@ -56,7 +54,8 @@ function Listing({ idx, place, handleHover }) {
         <div className="name-price-rating">
           <h3 className="desc">{`${idx + 1}. ` + name}</h3>
           <div className="desc">
-            {rating} Star <span className="reviews">{user_ratings_total} reviews</span>
+            {rating} Star{' '}
+            <span className="reviews">{user_ratings_total} reviews</span>
           </div>
           <div className="desc">{cost}</div>
         </div>
@@ -65,7 +64,6 @@ function Listing({ idx, place, handleHover }) {
       <div className="sub-attr">
         <div className="address">
           <div className="street">{street}</div>
-          {/* <div className="city-state">{cityState}</div> */}
         </div>
 
         <div className="open">{open}</div>

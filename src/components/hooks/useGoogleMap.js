@@ -25,7 +25,7 @@ function useGoogleMap(mapRef, mapOptions) {
       return new google.maps.Marker({
         position: location,
         label: String(idx + 1),
-        map,
+        map
       });
     });
 
@@ -34,9 +34,9 @@ function useGoogleMap(mapRef, mapOptions) {
 
   useEffect(() => {
     markers.forEach((marker, idx) => {
-      hoveredIdx === idx ?
-        marker.setAnimation(google.maps.Animation.BOUNCE) :
-        marker.setAnimation(null);
+      hoveredIdx === idx
+        ? marker.setAnimation(google.maps.Animation.BOUNCE)
+        : marker.setAnimation(null);
     });
   }, [hoveredIdx]);
 
