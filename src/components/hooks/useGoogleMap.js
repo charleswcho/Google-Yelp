@@ -4,6 +4,8 @@ import { useState, useEffect } from 'react';
 
 function useGoogleMap(mapRef, mapOptions) {
   const [map, setMap] = useState(null);
+  const [locations, setLocations] = useState([]);
+  const [markers, setMarkers] = useState([]);
 
   useEffect(() => {
     if (!mapRef) {
@@ -11,16 +13,27 @@ function useGoogleMap(mapRef, mapOptions) {
     }
 
     const map = new google.maps.Map(mapRef.current, mapOptions);
-    const marker = new google.maps.Marker({
-      position: mapOptions.center,
-      map
-    });
 
     setMap(map);
-
   }, [mapRef, mapOptions]);
 
-  return [map];
+  useEffect(() => {
+    markers.forEach(marker => marker.setMap(null));
+
+    const newMarkers = locations.map((location, idx) => {
+      return new google.maps.Marker({
+        position: location,
+        label: String(idx + 1),
+        map,
+      });
+    });
+
+    setMarkers(newMarkers);
+  }, [locations]);
+
+
+
+  return [map, setLocations];
 }
 
 export default useGoogleMap;

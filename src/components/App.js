@@ -5,6 +5,7 @@ import useGeocoder from './hooks/useGeocoder';
 import usePlacesService from './hooks/usePlacesService';
 
 import SearchBar from './search-bar/SearchBar';
+import Listings from './listings/Listings';
 
 import './App.sass';
 
@@ -27,29 +28,44 @@ const mapOptions = {
 
 function App() {
   const mapRef = useRef(null);
-  const [map] = useGoogleMap(mapRef, mapOptions);
+  const [map, setLocations] = useGoogleMap(mapRef, mapOptions);
   const [getCoordsOfAddress] = useGeocoder(map);
   const [getLocationData] = usePlacesService(map);
+  const [listings, setListings] = useState([]);
 
   async function handleSearch(query, place) {
-    console.log(query, place);
+    console.log('1. Params', query, place);
 
     try {
       const coords = await getCoordsOfAddress(place);
       const data = await getLocationData(query, coords);
 
+      console.log('2. Data', data);
+
       map.panTo(coords);
-      console.log(data);
+
+      const locations = data.map(listing => listing.geometry.location);
+
+      setListings(data);
+      setLocations(locations);
     } catch (err) {
       console.log(err);
     }
   };
 
+  useEffect(() => {
+    handleSearch('sushi', 'San Francisco, CA, USA');
+  }, [getCoordsOfAddress, getLocationData, map]);
+
+
   return (
     <div className="App">
       <SearchBar handleSearch={handleSearch} />
 
-      <div className="google-map" ref={mapRef} />
+      <div className="results">
+        <Listings listings={listings}/>
+        <div className="google-map" ref={mapRef} />
+      </div>
     </div>
   );
 }
