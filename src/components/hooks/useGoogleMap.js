@@ -6,6 +6,7 @@ function useGoogleMap(mapRef, mapOptions) {
   const [map, setMap] = useState(null);
   const [locations, setLocations] = useState([]);
   const [markers, setMarkers] = useState([]);
+  const [hoveredIdx, setHoveredIdx] = useState(null);
 
   useEffect(() => {
     if (!mapRef) {
@@ -31,9 +32,15 @@ function useGoogleMap(mapRef, mapOptions) {
     setMarkers(newMarkers);
   }, [locations]);
 
+  useEffect(() => {
+    markers.forEach((marker, idx) => {
+      hoveredIdx === idx ?
+        marker.setAnimation(google.maps.Animation.BOUNCE) :
+        marker.setAnimation(null);
+    });
+  }, [hoveredIdx]);
 
-
-  return [map, setLocations];
+  return [map, setLocations, setHoveredIdx];
 }
 
 export default useGoogleMap;

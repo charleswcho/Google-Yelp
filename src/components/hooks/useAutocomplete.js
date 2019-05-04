@@ -20,8 +20,6 @@ function useAutocomplete(initialState, inputRef) {
     const listener = autocomplete.addListener('place_changed', () => {
       const address = autocomplete.getPlace().formatted_address;
 
-      debugger
-
       if (address) {
         setPlace(address);
       }

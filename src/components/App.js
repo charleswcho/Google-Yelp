@@ -15,12 +15,12 @@ import './App.sass';
 
 const mapOptions = {
   center: { lat: 37.7749, lng: -122.4194 },
-  zoom: 14,
+  zoom: 12.5,
   scrollwheel: false,
   mapTypeControl: false,
   zoomControl: true,
   zoomControlOptions: {
-    position: 'LEFT_TOP'
+    position: google.maps.ControlPosition.LEFT_TOP
   },
   scaleControl: false,
   streetViewControl: false
@@ -28,12 +28,12 @@ const mapOptions = {
 
 function App() {
   const mapRef = useRef(null);
-  const [map, setLocations] = useGoogleMap(mapRef, mapOptions);
+  const [map, setLocations, setHoveredIdx] = useGoogleMap(mapRef, mapOptions);
   const [getCoordsOfAddress] = useGeocoder(map);
   const [getLocationData] = usePlacesService(map);
   const [listings, setListings] = useState([]);
 
-  async function handleSearch(query, place) {
+  const handleSearch = async (query, place) => {
     console.log('1. Params', query, place);
 
     try {
@@ -53,17 +53,20 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    handleSearch('sushi', 'San Francisco, CA, USA');
-  }, [getCoordsOfAddress, getLocationData, map]);
+  const handleHover = idx => {
+    setHoveredIdx(idx);
+  }
 
+  // useEffect(() => {
+  //   handleSearch('sushi', 'San Francisco, CA, USA');
+  // }, [getCoordsOfAddress, getLocationData, map]);
 
   return (
     <div className="App">
       <SearchBar handleSearch={handleSearch} />
 
       <div className="results">
-        <Listings listings={listings}/>
+        <Listings listings={listings} handleHover={handleHover} />
         <div className="google-map" ref={mapRef} />
       </div>
     </div>

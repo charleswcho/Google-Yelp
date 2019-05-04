@@ -37,7 +37,7 @@ function SearchBar({ handleSearch }) {
 
   return (
     <form className="search" onSubmit={search}>
-      <a className="header" href="/">
+      <a className="header" href="#">
         <h1>Google Yelp</h1>
       </a>
 

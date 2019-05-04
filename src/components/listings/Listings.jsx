@@ -2,19 +2,24 @@ import React from 'react';
 
 import './Listings.sass';
 
-function Listings({ listings }) {
+function Listings({ listings, handleHover }) {
   return (
     <div className="index">
       <ul className="listings">
         {listings.map((place, idx) => (
-          <Listing key={idx} idx={idx + 1} place={place} />
+          <Listing
+            key={idx}
+            idx={idx}
+            place={place}
+            handleHover={handleHover}
+          />
         ))}
       </ul>
     </div>
   );
 }
 
-function Listing({ idx, place }) {
+function Listing({ idx, place, handleHover }) {
   let cost = '';
   let open;
   let addressArr = [];
@@ -47,13 +52,25 @@ function Listing({ idx, place }) {
     photoUrl = photos[0].getUrl({ maxWidth: 250, maxHeight: 250 });
   }
 
+  const onMouseEnter = () => {
+    handleHover(idx);
+  };
+
+  const onMouseLeave = () => {
+    handleHover(null);
+  };
+
   return (
-    <div className="listing">
+    <div
+      className="listing"
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+    >
       <div className="main-attr">
         <img src={photoUrl} alt="place" />
 
         <div className="name-price-rating">
-          <div className="desc">{`${idx}. ` + name}</div>
+          <div className="desc">{`${idx + 1}. ` + name}</div>
           <div className="desc">{rating} Star</div>
           <div className="desc">{cost}</div>
         </div>
