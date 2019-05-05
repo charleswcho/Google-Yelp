@@ -1,8 +1,8 @@
 # Google Yelp
 
-GoogleYelp, inspired by Yelp but powered by Google.
+Google Yelp, inspired by Yelp but powered by Google.
 
-[Google-Yelp Live](https://charleswcho.github.io/Google-Yelp/)
+[Google-Yelp Live](https://charleswcho.github.io/google-yelp/)
 
 ## Features & Implementation
 
