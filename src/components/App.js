@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useRef, useState, useEffect } from 'react';
 
 import useGoogleMap from './hooks/useGoogleMap';
 import useGeocoder from './hooks/useGeocoder';
@@ -27,9 +27,16 @@ const mapOptions = {
 function App() {
   const mapRef = useRef(null);
   const [map, setLocations, setHoveredIdx] = useGoogleMap(mapRef, mapOptions);
-  const [getCoordsOfAddress] = useGeocoder(map);
-  const [getLocationData] = usePlacesService(map);
+  const [geocoderReady, getCoordsOfAddress] = useGeocoder(map);
+  const [placesServiceReady, getLocationData] = usePlacesService(map);
   const [listings, setListings] = useState([]);
+
+  useEffect(() => {
+    if (geocoderReady && placesServiceReady) {
+      // Default search params
+      handleSearch('tacos', 'San Francisco, CA, USA');
+    }
+  }, [geocoderReady, placesServiceReady]);
 
   const handleSearch = async (query, place) => {
     console.log('1. Params', query, place);
@@ -53,7 +60,7 @@ function App() {
 
   const handleHover = idx => {
     setHoveredIdx(idx);
-  }
+  };
 
   return (
     <div className="App">

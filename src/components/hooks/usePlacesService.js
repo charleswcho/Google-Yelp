@@ -3,15 +3,19 @@ import { useState, useEffect } from 'react';
 /* global google */
 
 function usePlacesService(map) {
+  const [placesServiceReady, setPlacesServiceReady] = useState(false);
   const [placesService, setPlacesService] = useState(null);
   const statusCodes = { OK: 'OK' };
 
   useEffect(() => {
+    setPlacesServiceReady(false);
+
     if (!map) {
       return;
     }
 
     setPlacesService(new google.maps.places.PlacesService(map));
+    setPlacesServiceReady(true);
   }, [map]);
 
   function getLocationData(query, coords) {
@@ -32,7 +36,7 @@ function usePlacesService(map) {
     });
   }
 
-  return [getLocationData];
+  return [placesServiceReady, getLocationData];
 }
 
 export default usePlacesService;

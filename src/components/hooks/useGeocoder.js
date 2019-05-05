@@ -3,15 +3,19 @@ import { useState, useEffect } from 'react';
 /* global google */
 
 function useGeocoder(map) {
+  const [geocoderReady, setGeocoderReady] = useState(false);
   const [geocoder, setGeocoder] = useState(null);
   const statusCodes = { OK: 'OK' };
 
   useEffect(() => {
+    setGeocoderReady(false);
+
     if (!map) {
       return;
     }
 
     setGeocoder(new google.maps.Geocoder());
+    setGeocoderReady(true);
   }, [map]);
 
   function getCoordsOfAddress(place) {
@@ -28,7 +32,7 @@ function useGeocoder(map) {
     });
   }
 
-  return [getCoordsOfAddress];
+  return [geocoderReady, getCoordsOfAddress];
 }
 
 export default useGeocoder;
