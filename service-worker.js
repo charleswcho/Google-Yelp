@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.1/workbox-sw.js");
 
 importScripts(
-  "/google-yelp/precache-manifest.f707e38dc69b869f4a02fec844a3ea2d.js"
+  "/google-yelp/precache-manifest.918b8bc895bde63a10c4c8e29006208f.js"
 );
 
 self.addEventListener('message', (event) => {
