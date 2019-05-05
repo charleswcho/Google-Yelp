@@ -4,6 +4,8 @@ import useAutoComplete from '../hooks/useAutocomplete';
 
 import './SearchBar.sass';
 
+import search_filled from '../../assets/search_filled.png';
+
 function SearchBar({ handleSearch }) {
   const inputRef = useRef(null);
   const [query, setQuery] = useState('');
@@ -59,7 +61,9 @@ function SearchBar({ handleSearch }) {
         onChange={handlePlaceChange}
       />
 
-      <button className="search-button" type="submit" />
+      <button className="search-button" type="submit">
+        <img className="search-icon" src={search_filled} alt="search"/>
+      </button>
     </form>
   );
 }

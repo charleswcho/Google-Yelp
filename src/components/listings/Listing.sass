@@ -8,7 +8,7 @@
     display: flex
     padding-right: 10px
 
-    img
+    .thumbnail
       height: 200px
       width: 200px
       border-radius: 4px
@@ -19,6 +19,15 @@
 
       .desc
         margin-bottom: 5px
+
+        .rating
+          margin-right: 2px
+
+        .star-icon
+          height: 18px
+          width: 18px
+          margin-right: 6px
+          vertical-align: bottom
 
         .reviews
           color: #666
@@ -32,15 +41,13 @@
     text-align: right
 
     .address
-      .street
-        text-align: left
+      margin-bottom: 5px
 
-      .city-state
-        text-align: left
+      .street
+        text-align: right
 
     .open
       color: #41a700
-      margin-top: 5px
 
       &.closed
         color: #d32323

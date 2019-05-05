@@ -2,6 +2,8 @@ import React from 'react';
 
 import './Listing.sass';
 
+import star from '../../assets/star.png';
+
 function Listing({ idx, place, handleHover }) {
   let cost = '';
   let open;
@@ -49,14 +51,17 @@ function Listing({ idx, place, handleHover }) {
       onMouseLeave={onMouseLeave}
     >
       <div className="main-attr">
-        <img src={photoUrl} alt="place" />
+        <img className="thumbnail" src={photoUrl} alt="place" />
 
         <div className="name-price-rating">
           <h3 className="desc">{`${idx + 1}. ` + name}</h3>
+
           <div className="desc">
-            {rating} Star{' '}
+            <span className="rating">{rating}</span>
+            <img className="star-icon" src={star} alt="star" />
             <span className="reviews">{user_ratings_total} reviews</span>
           </div>
+
           <div className="desc">{cost}</div>
         </div>
       </div>
@@ -66,7 +71,9 @@ function Listing({ idx, place, handleHover }) {
           <div className="street">{street}</div>
         </div>
 
-        <div className={`open ${opening_hours.open_now ? '' : 'closed'}`}>{open}</div>
+        <div className={`open ${opening_hours.open_now ? '' : 'closed'}`}>
+          {open}
+        </div>
       </div>
     </div>
   );
