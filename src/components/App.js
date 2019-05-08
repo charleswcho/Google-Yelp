@@ -9,24 +9,9 @@ import Listings from './listings/Listings';
 
 import './App.sass';
 
-/* global google */
-
-const mapOptions = {
-  center: { lat: 37.7749, lng: -122.4194 },
-  zoom: 12.5,
-  scrollwheel: false,
-  mapTypeControl: false,
-  zoomControl: true,
-  zoomControlOptions: {
-    position: google.maps.ControlPosition.LEFT_TOP
-  },
-  scaleControl: false,
-  streetViewControl: false
-};
-
 function App() {
   const mapRef = useRef(null);
-  const [map, setLocations, setHoveredIdx] = useGoogleMap(mapRef, mapOptions);
+  const [map, setLocations, setHoveredIdx] = useGoogleMap(mapRef);
   const [geocoderReady, getCoordsOfAddress] = useGeocoder(map);
   const [placesServiceReady, getLocationData] = usePlacesService(map);
   const [listings, setListings] = useState([]);
