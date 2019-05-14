@@ -56,9 +56,9 @@ function useGoogleMap(mapRef) {
     markers.forEach((marker, idx) => {
       hoveredIdx === idx
         ? marker.setAnimation(google.maps.Animation.BOUNCE)
-        : marker.setAnimation(null);
+        : marker.setAnimation(-1);
     });
-  }, [hoveredIdx]);
+  }, [markers, hoveredIdx]);
 
   return [map, setLocations, setHoveredIdx];
 }
