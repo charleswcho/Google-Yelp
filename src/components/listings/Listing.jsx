@@ -18,14 +18,14 @@ function Listing({ idx, place, handleHover }) {
     photos,
     name,
     rating,
-    user_ratings_total
+    user_ratings_total,
   } = place;
 
   for (let i = 0; i < price_level; i++) {
     cost += '$';
   }
 
-  if (opening_hours) open = opening_hours.open_now ? 'Open now' : 'Closed';
+  if (opening_hours) open = opening_hours.isOpen();
 
   if (formatted_address) {
     addressArr = formatted_address.split(',');
@@ -71,8 +71,8 @@ function Listing({ idx, place, handleHover }) {
           <div className="street">{street}</div>
         </div>
 
-        <div className={`open ${opening_hours.open_now ? '' : 'closed'}`}>
-          {open}
+        <div className={`open ${open ? '' : 'closed'}`}>
+          {open ? 'Open now' : 'Closed'}
         </div>
       </div>
     </div>
